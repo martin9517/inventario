@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   const object = new Marca(req.body);
 
   // Save Marca in the database
-  marca
+  object
     .save(object)
     .then(data => {
       res.send(data);
