@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" formControlName="nombre">
+            </div>
+            <div class="form-group">
+                <label>Codigo</label>
+                <input type="text" class="form-control" formControlName="codigo">
+            </div>
+            <div class="form-group">
+                <label>Precio Unitario</label>
+                <input type="text" class="form-control" formControlName="precioUnitario">
+            </div>
+            <div class="form-group">
+                <label>Marca</label>
+                <select class="custom-select" formControlName="marca">
+                    <option selected>Seleccionar Marca</option>
+                    <option [value]='marca.id' *ngFor='let marca of marcas'>{{marca.nombre}}</option>
+                  </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" (click)="onSubmit()">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

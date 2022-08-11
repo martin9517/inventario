@@ -1,7 +1,7 @@
 const db = require("../models");
-const CantidadProducto = db.cantidadProducto;
+const ProductoDetalle = db.productoDetalle;
 
-// Create and CantidadProducto a new Producto.
+// Create and ProductoDetalle a new Producto.
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.nombre) {
@@ -10,7 +10,7 @@ exports.create = (req, res) => {
   }
 
   // Create a Producto
-  const object = new CantidadProducto(req.body);
+  const object = new ProductoDetalle(req.body);
 
   // Save Producto in the database
   object
@@ -30,7 +30,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
 
-  CantidadProducto.find(condition)
+  ProductoDetalle.find(condition)
     .then(data => {
       res.send(data);
     })
@@ -46,7 +46,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  CantidadProducto.findById(id)
+  ProductoDetalle.findById(id)
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found de Producto with id " + id });
@@ -69,7 +69,7 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  CantidadProducto.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  ProductoDetalle.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
@@ -88,7 +88,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  CantidadProducto.findByIdAndRemove(id, { useFindAndModify: false })
+  ProductoDetalle.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({

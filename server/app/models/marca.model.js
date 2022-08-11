@@ -13,6 +13,6 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Marca = mongoose.model("marca", schema);
+  const Marca = mongoose.model("Marca", schema);
   return Marca;
 };

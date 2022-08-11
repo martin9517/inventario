@@ -3,11 +3,8 @@ const { Schema } = require("mongoose");
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
-        nombre: String,
-        codigo: String,
-        precioUnitario: Number,        
-        bonificacion: Number,
-        marca : { type: Schema.Types.ObjectId, ref: 'Marca' }
+        cantidad: Number,
+        producto : [{ type: Schema.Types.ObjectId, ref: 'Producto' }]
       },
       { timestamps: true }
     );
@@ -18,7 +15,7 @@ module.exports = mongoose => {
       return object;
     });
   
-    const Producto = mongoose.model("producto", schema);
-    return Producto;
+    const ProductoDetalle = mongoose.model("productoDetalle", schema);
+    return ProductoDetalle;
   };
   

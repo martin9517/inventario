@@ -32,6 +32,7 @@ exports.findAll = (req, res) => {
   var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
 
   Producto.find(condition)
+    .populate('marca', 'nombre')
     .then(data => {
       res.send(data);
     })
@@ -40,6 +41,7 @@ exports.findAll = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving Producto."
       });
+
     });
 };
 

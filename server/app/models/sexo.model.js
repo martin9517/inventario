@@ -1,13 +1,8 @@
-const { Schema } = require("mongoose");
-
 module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         nombre: String,
-        codigo: String,
-        precioUnitario: Number,        
-        bonificacion: Number,
-        marca : { type: Schema.Types.ObjectId, ref: 'Marca' }
+        codigo: String
       },
       { timestamps: true }
     );
@@ -18,7 +13,6 @@ module.exports = mongoose => {
       return object;
     });
   
-    const Producto = mongoose.model("producto", schema);
-    return Producto;
+    const Sexo = mongoose.model("sexo", schema);
+    return Sexo;
   };
-  

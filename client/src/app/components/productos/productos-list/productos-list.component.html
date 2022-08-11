@@ -9,19 +9,20 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
                         <th scope="col">Codigo</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Precio Bonificado</th>
+                        <th scope="col">Cantidad</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let marca of marcas">
-                        <td>{{marca.nombre}}</td>
-                        <td>{{marca.codigo}}</td>
-                        <td>
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-secondary">Borrar</button>
-                        </td>
+                    <tr *ngFor="let producto of productos">
+                        <td>{{producto.codigo}}</td>
+                        <td>{{producto.nombre}}</td>
+                        <td>{{producto.marca?.nombre}}</td>
+                        <td>{{producto.precioUnitario}}</td>
                     </tr>
                 </tbody>
             </table>
