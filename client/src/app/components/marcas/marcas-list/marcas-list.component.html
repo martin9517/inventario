@@ -19,8 +19,8 @@
                         <td>{{marca.nombre}}</td>
                         <td>{{marca.codigo}}</td>
                         <td>
-                            <button class="btn btn-secondary">Editar</button>
-                            <button class="btn btn-secondary">Borrar</button>
+                            <button type="button" class="btn btn-success btn-sm"(click)="edit(marca.id)">Editar</button>
+                            <button type="button" class="btn btn-success btn-sm"(click)="deleteEntity(marca.id)">Borrar</button>
                         </td>
                     </tr>
                 </tbody>

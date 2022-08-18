@@ -24,12 +24,21 @@ export class ProductosListComponent implements OnInit {
     this.router.navigate(['productos', 'create']);
   }
 
+  edit(id:string):void{
+    this.router.navigate(['productos', 'edit', id])
+  }
+
+  deleteEntity(id:string):void{
+    this.productoService.delete(id).subscribe(data => {
+      this.fetchProducto();
+    })
+  }
+
   fetchProducto(): void {
     this.productoService.getAll()
       .subscribe({
         next: (data) => {
           this.productos = data;
-          //console.log(data);
         }
       })
   }

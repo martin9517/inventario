@@ -28,8 +28,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Marcas from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+  const nombre = req.query.nombre;
+  let condition = nombre ? { nombre: { $regex: new RegExp(nombre), $options: "i" } } : {};
 
   Marca.find(condition)
     .then(data => {

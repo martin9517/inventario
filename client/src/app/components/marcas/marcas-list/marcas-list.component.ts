@@ -11,7 +11,7 @@ import { MarcaService } from 'src/app/services/marca.service';
 export class MarcasListComponent implements OnInit {
 
   marcas?: Marca[];
-
+  editables = {};
 
   constructor(
     private router: Router,
@@ -24,6 +24,16 @@ export class MarcasListComponent implements OnInit {
 
   new(): void {
     this.router.navigate(['marcas', 'create']);
+  }
+
+  edit(id:string):void{
+    this.router.navigate(['marcas', 'edit', id])
+  }
+
+  deleteEntity(id:string):void{
+    this.marcaService.delete(id).subscribe(data => {
+      this.fetchMarcas();
+    })
   }
 
   fetchMarcas(): void {

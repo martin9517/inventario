@@ -1,8 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-auto">
             <button type="button" class="btn btn-primary" (click)="new()">Agregar</button>
+        </div> 
+    </div>
+    <div class="d-flex flex-row-reverse">
+        <div >
+            <button  class="align-items-left" type="button" class="btn btn-primary">Buscar</button>
         </div>
+
+        <div class="col-auto">
+            <input type="text" class="form-control" placeholder="Codigo/Nombre">
+        </div> 
     </div>
     <div class="row mt-2">
         <div class="col">
@@ -14,7 +23,7 @@
                         <th scope="col">Marca</th>
                         <th scope="col">Precio Unitario</th>
                         <th scope="col">Precio Bonificado</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,9 +31,11 @@
                         <td>{{producto.codigo}}</td>
                         <td>{{producto.nombre}}</td>
                         <td>{{producto.marca?.nombre}}</td>
-                        <td>{{producto.precioUnitario}}</td>
+                        <td>{{producto.precioUnitario | currency}} </td>
+                        <td>{{producto.precioUnitario | currency}}</td>
+                        <button type="button" class="btn btn-success" (click)="edit(producto.id)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteEntity(producto.id)">Borrar</button>
                     </tr>
-                </tbody>
             </table>
         </div>
     </div>

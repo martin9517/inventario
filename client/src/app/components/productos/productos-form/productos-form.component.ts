@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Marca } from 'src/app/models/marca.model';
 import { Producto } from 'src/app/models/producto.model';
 import { MarcaService } from 'src/app/services/marca.service';
@@ -16,14 +16,15 @@ export class ProductosFormComponent implements OnInit {
   constructor(
     protected fb: FormBuilder,
     protected productoService: ProductoService,
-    protected marcaService:MarcaService,
-
-    protected router: Router
+    protected marcaService: MarcaService,
+    protected router: Router,
+    protected activedRoute: ActivatedRoute,
   ) { }
 
   model: Producto = {};
   form: FormGroup;
-  marcas: Marca [];
+  marcas: Marca[];
+  entityId: any;
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -32,22 +33,40 @@ export class ProductosFormComponent implements OnInit {
       precioUnitario: new FormControl(),
       marca: new FormControl()
     });
+    this.fechEntity();
     this.fetchMarcas();
+  }
+
+  fechEntity(): void {
+   this.entityId = this.activedRoute.snapshot.params['id'];
+    if (this.entityId) {
+      this.productoService.get(this.entityId).subscribe(data => {
+        this.form.patchValue({
+          ...data
+        })
+      })
+    }
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.productoService.create(this.form.value).subscribe(data => {
-        this.router.navigate(['productos']);
-      });
+      if (this.entityId) {
+        this.productoService.update(this.entityId, this.form.value).subscribe(data => {
+          this.router.navigate(['productos']);
+        });
+      } else {
+        this.productoService.create(this.form.value).subscribe(data => {
+          this.router.navigate(['productos']);
+        });
+      }
     }
   }
-  
-  fetchMarcas():void{
-    this.marcaService.getAll().subscribe(data => {
-      this.marcas = data
-    })
-  }
+
+fetchMarcas(): void {
+  this.marcaService.getAll().subscribe(data => {
+    this.marcas = data
+  })
+}
 
 
 }
