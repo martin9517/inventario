@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
+import { Pagination, QueryParams } from 'src/app/models/rest.model';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
@@ -10,7 +11,16 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class ProductosListComponent implements OnInit {
   productos?: Producto[];
-  nombre ='';
+  search ='';
+  pagination: Pagination = {
+    page: 0,
+    total: 0
+  };
+  queryParams: QueryParams = {
+    limit: 10,
+    skip: 0
+  };
+  paginateArray: Array<number>;
 
   constructor(
     private router: Router,
@@ -36,24 +46,30 @@ export class ProductosListComponent implements OnInit {
   }
 
   fetchProducto(): void {
-    this.productoService.getAll()
+    this.productoService.getAll(this.queryParams)
       .subscribe({
         next: (data) => {
-          this.productos = data;
+          this.productoService.count(this.queryParams).subscribe(count => {
+            this.productos = data;
+            this.pagination.total = count.total;
+            this.paginateArray = Array.from(Array(Math.ceil(50/10)).keys());
+          })
         }
       })
   }
+  
   searchNombre(): void {
-    this.productoService.findByProducto(this.nombre)
-      .subscribe({
-        next: (data) => {
-          this.productos = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
+    if (this.search) {
+      this.queryParams.filters = [{field: 'search', value: this.search}];
+      this.fetchProducto();
+    }
   }
 
-
+  clearSearch(): void {
+    if (!this.search) {
+      this.queryParams.filters = [];
+      this.fetchProducto();
+    }
+  }
 
 }

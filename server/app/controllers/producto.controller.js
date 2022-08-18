@@ -28,11 +28,22 @@ exports.create = (req, res) => {
 
 // Retrieve all Productos from the database.
 exports.findAll = (req, res) => {
-  const nombre = req.query.nombre;
-  var condition = nombre ? { nombre: { $regex: new RegExp(nombre), $options: "i" } } : {};
+  const search = req.query.search;
+  const limit = req.query.limit | 10;
+  const skip = req.query.skip | 0;
+  let condition = {};
+
+  if (search) {
+    condition['$or'] = [
+      {'nombre': { $regex: new RegExp(search), $options: "i" }},
+      {'codigo': { $regex: new RegExp(search), $options: "i" }}
+    ];
+  }
 
   Producto.find(condition)
     .populate('marca', 'nombre')
+    .limit(limit)
+    .skip(skip)
     .then(data => {
       res.send(data);
     })
@@ -61,6 +72,31 @@ exports.findOne = (req, res) => {
         .send({ message: "Error retrieving Producto with id=" + id });
     });
 };
+
+// Count all of Producto
+exports.count = (req, res) => {
+  const search = req.query.search;
+  let condition = {};
+
+  if (search) {
+    condition['$or'] = [
+      {'nombre': { $regex: new RegExp(search), $options: "i" }},
+      {'codigo': { $regex: new RegExp(search), $options: "i" }}
+    ];
+  }
+
+  Producto.count(condition)
+    .then(total => {
+      res.send({total: total})
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message
+      });
+    });
+}
+
 
 // Update a Producto by the id in the request
 exports.update = (req, res) => {

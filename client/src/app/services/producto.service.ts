@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Producto } from '../models/producto.model';
+import { Count, QueryParams } from '../models/rest.model';
+import { Utils } from '../utils/utils';
 
 
 @Injectable({
@@ -13,12 +15,16 @@ export class ProductoService {
   protected readonly baseURL = `${environment.API_URL}/productos`;
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.baseURL);
+  getAll(queryParams?: QueryParams): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.baseURL, {params: Utils.buildParams(queryParams)});
   }
 
   get(id: any): Observable<Producto> {
     return this.http.get<Producto>(`${this.baseURL}/${id}`);
+  }
+
+  count(queryParams?: QueryParams): Observable<Count> {
+    return this.http.get<Count>(`${this.baseURL}/count`, {params: Utils.buildParams(queryParams)})
   }
 
   create(data: any): Observable<any> {
@@ -31,9 +37,6 @@ export class ProductoService {
 
   delete(id: any): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
-  }
-  findByProducto(nombre?: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.findByProducto}?nombre=${nombre}`);
   }
 }
 

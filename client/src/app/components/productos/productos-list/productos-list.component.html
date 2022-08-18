@@ -2,16 +2,18 @@
     <div class="row">
         <div class="col-auto">
             <button type="button" class="btn btn-primary" (click)="new()">Agregar</button>
-        </div> 
+        </div>
     </div>
     <div class="d-flex flex-row-reverse">
-        <div >
-            <button  class="align-items-left" type="button" class="btn btn-primary" (click)="searchNombre()"><i class="bi bi-search"></i></button>
+        <div>
+            <button class="align-items-left" type="button" class="btn btn-primary" (click)="searchNombre()"><i
+                    class="bi bi-search"></i></button>
         </div>
 
         <div class="col-auto">
-            <input type="text" class="form-control" placeholder="Codigo/Nombre">
-        </div> 
+            <input type="text" class="form-control" [(ngModel)]="search" (ngModelChange)="clearSearch()"
+                placeholder="Codigo/Nombre">
+        </div>
     </div>
     <div class="row mt-2">
         <div class="col">
@@ -33,10 +35,21 @@
                         <td>{{producto.marca?.nombre}}</td>
                         <td>{{producto.precioUnitario?.toString() | currency}} </td>
                         <td></td>
-                        <button type="button" class="btn btn-success" (click)="edit(producto.id)"> <i class="bi bi-pencil-square"></i></button>
-                        <button type="button" class="btn btn-danger" (click)="deleteEntity(producto.id)"><i class="bi bi-trash3-fill"></i></button>
+                        <button type="button" class="btn btn-success" (click)="edit(producto.id)"> <i
+                                class="bi bi-pencil-square"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="deleteEntity(producto.id)"><i
+                                class="bi bi-trash3-fill"></i></button>
                     </tr>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" *ngFor="let page of paginateArray"><a class="page-link" href="#">{{page + 1}}</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
