@@ -4,6 +4,6 @@ export class Producto {
     id?: any;
     nombre?: string;
     codigo?: string;
-    precioUnitario?: string;
+    precioUnitario?: Number | string;
     marca?:Marca
   }

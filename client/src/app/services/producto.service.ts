@@ -32,4 +32,8 @@ export class ProductoService {
   delete(id: any): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
+  findByProducto(nombre?: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.findByProducto}?nombre=${nombre}`);
+  }
 }
+

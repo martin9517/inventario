@@ -10,6 +10,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class ProductosListComponent implements OnInit {
   productos?: Producto[];
+  nombre ='';
 
   constructor(
     private router: Router,
@@ -42,5 +43,17 @@ export class ProductosListComponent implements OnInit {
         }
       })
   }
+  searchNombre(): void {
+    this.productoService.findByProducto(this.nombre)
+      .subscribe({
+        next: (data) => {
+          this.productos = data;
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
+
 
 }
