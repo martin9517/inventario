@@ -10,6 +10,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./productos-list.component.css']
 })
 export class ProductosListComponent implements OnInit {
+  LIMIT = 2;
   productos?: Producto[];
   search ='';
   pagination: Pagination = {
@@ -17,10 +18,10 @@ export class ProductosListComponent implements OnInit {
     total: 0
   };
   queryParams: QueryParams = {
-    limit: 10,
+    limit: this.LIMIT,
     skip: 0
   };
-  paginateArray: Array<number>;
+  loading: boolean;
 
   constructor(
     private router: Router,
@@ -28,7 +29,7 @@ export class ProductosListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchProducto();
+    this.fetchProductos();
   }
 
   new(): void {
@@ -41,19 +42,20 @@ export class ProductosListComponent implements OnInit {
 
   deleteEntity(id:string):void{
     this.productoService.delete(id).subscribe(data => {
-      this.fetchProducto();
+      this.fetchProductos();
     })
   }
 
-  fetchProducto(): void {
+  fetchProductos(): void {
+    this.loading = true;
     this.productoService.getAll(this.queryParams)
       .subscribe({
         next: (data) => {
           this.productoService.count(this.queryParams).subscribe(count => {
             this.productos = data;
             this.pagination.total = count.total;
-            this.paginateArray = Array.from(Array(Math.ceil(50/10)).keys());
-          })
+            this.loading = false;
+          });
         }
       })
   }
@@ -61,15 +63,21 @@ export class ProductosListComponent implements OnInit {
   searchNombre(): void {
     if (this.search) {
       this.queryParams.filters = [{field: 'search', value: this.search}];
-      this.fetchProducto();
+      this.fetchProductos();
     }
   }
 
   clearSearch(): void {
     if (!this.search) {
       this.queryParams.filters = [];
-      this.fetchProducto();
+      this.fetchProductos();
     }
+  }
+
+  onChangePage(page: number): void {
+    this.queryParams.skip = page * this.LIMIT;
+    this.pagination.page = page;
+    this.fetchProductos();
   }
 
 }

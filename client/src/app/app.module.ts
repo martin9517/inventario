@@ -9,6 +9,7 @@ import { MarcasListComponent } from './components/marcas/marcas-list/marcas-list
 import { MarcasFormComponent } from './components/marcas/marcas-form/marcas-form.component';
 import { ProductosListComponent } from './components/productos/productos-list/productos-list.component';
 import { ProductosFormComponent } from './components/productos/productos-form/productos-form.component';
+import { PaginatorComponent } from './shared/modules/paginator/paginator.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProductosFormComponent } from './components/productos/productos-form/pr
     MarcasListComponent,
     MarcasFormComponent,
     ProductosListComponent,
-    ProductosFormComponent
+    ProductosFormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,

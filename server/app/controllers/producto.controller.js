@@ -29,8 +29,8 @@ exports.create = (req, res) => {
 // Retrieve all Productos from the database.
 exports.findAll = (req, res) => {
   const search = req.query.search;
-  const limit = req.query.limit | 10;
-  const skip = req.query.skip | 0;
+  const limit = req.query.limit ? Number(req.query.limit) : 10;
+  const skip = req.query.skip ? Number(req.query.skip) : 0;
   let condition = {};
 
   if (search) {
