@@ -10,6 +10,7 @@ import { MarcasFormComponent } from './components/marcas/marcas-form/marcas-form
 import { ProductosListComponent } from './components/productos/productos-list/productos-list.component';
 import { ProductosFormComponent } from './components/productos/productos-form/productos-form.component';
 import { PaginatorComponent } from './shared/modules/paginator/paginator.component';
+import { BonificacionFormComponent } from './components/productos/bonificacion-form/bonificacion-form.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PaginatorComponent } from './shared/modules/paginator/paginator.compone
     MarcasFormComponent,
     ProductosListComponent,
     ProductosFormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    BonificacionFormComponent
   ],
   imports: [
     BrowserModule,
