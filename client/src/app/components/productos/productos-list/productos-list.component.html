@@ -23,6 +23,7 @@
                         <th scope="col">Codigo</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Marca</th>
+                        <th scope="col">Talle</th>
                         <th scope="col">Precio Unitario</th>
                         <th scope="col">Precio Bonificado</th>
                         <th scope="col">Acciones</th>
@@ -33,6 +34,7 @@
                         <td>{{producto.codigo}}</td>
                         <td>{{producto.nombre}}</td>
                         <td>{{producto.marca?.nombre}}</td>
+                        <td>{{producto.talle}}</td>
                         <td>{{producto.precioUnitario?.toString() | currency}} </td>
                         <td></td>
                         <td>

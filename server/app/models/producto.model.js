@@ -7,6 +7,7 @@ module.exports = mongoose => {
         codigo: String,
         precioUnitario: Number,        
         bonificacion: Number,
+        talle: String,
         marca : { type: Schema.Types.ObjectId, ref: 'Marca' }
       },
       { timestamps: true }

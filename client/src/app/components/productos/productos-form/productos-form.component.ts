@@ -25,11 +25,19 @@ export class ProductosFormComponent implements OnInit {
   form: FormGroup;
   marcas: Marca[];
   entityId: any;
+  talles: string[] = [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+  ];
 
   ngOnInit(): void {
     this.form = this.fb.group({
       codigo: new FormControl(),
       nombre: new FormControl(),
+      talle: new FormControl(),
       precioUnitario: new FormControl(),
       marca: new FormControl()
     });
@@ -38,7 +46,7 @@ export class ProductosFormComponent implements OnInit {
   }
 
   fechEntity(): void {
-   this.entityId = this.activedRoute.snapshot.params['id'];
+    this.entityId = this.activedRoute.snapshot.params['id'];
     if (this.entityId) {
       this.productoService.get(this.entityId).subscribe(data => {
         this.form.patchValue({
@@ -62,12 +70,10 @@ export class ProductosFormComponent implements OnInit {
     }
   }
 
-fetchMarcas(): void {
-  this.marcaService.getAll().subscribe(data => {
-    this.marcas = data
-  })
-}
-
-
+  fetchMarcas(): void {
+    this.marcaService.getAll().subscribe(data => {
+      this.marcas = data
+    })
+  }
 }
 

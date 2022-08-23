@@ -14,6 +14,13 @@
                 <input type="text" class="form-control" formControlName="precioUnitario">
             </div>
             <div class="form-group">
+                <label>Talle</label>
+                <select class="custom-select" formControlName="talle">
+                    <option selected>Seleccionar Talle</option>
+                    <option *ngFor="let talle of talles" [value]='talle' > {{talle}}</option>
+                  </select>
+            </div>
+            <div class="form-group">
                 <label>Marca</label>
                 <select class="custom-select" formControlName="marca">
                     <option selected>Seleccionar Marca</option>
