@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Producto } from 'src/app/models/producto.model';
 import { Pagination, QueryParams } from 'src/app/models/rest.model';
 import { ProductoService } from 'src/app/services/producto.service';
+import { BonificacionFormComponent } from '../bonificacion-form/bonificacion-form.component';
 
 @Component({
   selector: 'app-productos-list',
@@ -25,7 +27,8 @@ export class ProductosListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private _modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -78,6 +81,10 @@ export class ProductosListComponent implements OnInit {
     this.queryParams.skip = page * this.LIMIT;
     this.pagination.page = page;
     this.fetchProductos();
+  }
+  
+  openBonificacion(): void {
+    this._modalService.open(BonificacionFormComponent)
   }
 
 }
