@@ -1,5 +1,5 @@
 const db = require("../models");
-const Bonificacion = db.bonificacion;
+const Bonificacion = db.bonificaciones;
 
 // Create and Save a new bonificacion
 exports.create = (req, res) => {
@@ -62,7 +62,7 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Marca with id=" + id
+                message: "Error updating bonificaciones with id=" + id
             });
         });
 };

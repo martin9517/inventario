@@ -8,5 +8,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.marcas = require("./marca.model.js")(mongoose);
 db.productos = require("./producto.model.js")(mongoose);
+db.bonificaciones = require("./bonificacion.model.js")(mongoose);
 
 module.exports = db;
