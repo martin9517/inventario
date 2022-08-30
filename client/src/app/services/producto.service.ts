@@ -31,6 +31,10 @@ export class ProductoService {
     return this.http.post(this.baseURL, data);
   }
 
+  import(data: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/import`, data);
+  }
+
   update(id: any, data: any): Observable<any> {
     return this.http.put(`${this.baseURL}/${id}`, data);
   }

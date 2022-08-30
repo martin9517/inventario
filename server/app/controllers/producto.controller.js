@@ -1,6 +1,7 @@
 const db = require("../models");
 const Producto = db.productos;
 const Bonificacion = db.bonificaciones;
+const Marca = db.marcas;
 
 // Create and Save a new Producto
 exports.create = (req, res) => {
@@ -27,6 +28,31 @@ exports.create = (req, res) => {
     });
 };
 
+// Import and Save Productos
+exports.import = async (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
+  const data = req.body;
+
+  for (let producto of data) {
+    if (producto.marca) {
+      producto.marca = await Marca.findOne({ nombre: producto.marca });
+    }
+  }
+
+  Producto.insertMany(data).then(productos => {
+    res.send(productos);
+  }).catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating productos."
+    });
+  })
+};
+
 // Retrieve all Productos from the database.
 exports.findAll = (req, res) => {
   const search = req.query.search;
@@ -36,8 +62,8 @@ exports.findAll = (req, res) => {
 
   if (search) {
     condition['$or'] = [
-      {'nombre': { $regex: new RegExp(search), $options: "i" }},
-      {'codigo': { $regex: new RegExp(search), $options: "i" }}
+      { 'nombre': { $regex: new RegExp(search), $options: "i" } },
+      { 'codigo': { $regex: new RegExp(search), $options: "i" } }
     ];
   }
 
@@ -49,8 +75,11 @@ exports.findAll = (req, res) => {
       Bonificacion.findOne({}).then(bonificacion => {
         if (bonificacion) {
           data.map(item => {
-            item.precioBonificado = item.precioUnitario + (item.precioUnitario * bonificacion.porcentaje);
-            Producto.create(item);
+            if (item.precioUnitario) {
+              item.precioBonificado = item.precioUnitario + (item.precioUnitario * bonificacion.porcentaje);
+              Producto.create(item);
+            }
+
             return item;
           })
         }
@@ -90,14 +119,14 @@ exports.count = (req, res) => {
 
   if (search) {
     condition['$or'] = [
-      {'nombre': { $regex: new RegExp(search), $options: "i" }},
-      {'codigo': { $regex: new RegExp(search), $options: "i" }}
+      { 'nombre': { $regex: new RegExp(search), $options: "i" } },
+      { 'codigo': { $regex: new RegExp(search), $options: "i" } }
     ];
   }
 
   Producto.count(condition)
     .then(total => {
-      res.send({total: total})
+      res.send({ total: total })
     })
     .catch(err => {
       res.status(500).send({

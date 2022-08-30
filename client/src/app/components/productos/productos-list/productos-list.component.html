@@ -4,6 +4,10 @@
             <button type="button" class="btn btn-primary" (click)="new()">Agregar</button>
         </div>
         <div class="col-auto">
+            <input type="file" style="display: none;" #fileInput (change)="onFileChange($event)">
+            <button type="button" class="btn btn-primary" (click)="fileInput.click()">Importar</button>
+        </div>
+        <div class="col-auto">
             <button type="button" class="btn btn-primary" (click)="openBonificacion()">Bonificacion</button>
         </div>
     </div>

@@ -49,7 +49,7 @@ export class BonificacionFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
+    if (this.form.valid && this.isPasswordValidated) {
       if (this.entityId) {
         this.bonificacionService.update(this.entityId, this.form.value).subscribe(data => {
           this.modal.close(true);

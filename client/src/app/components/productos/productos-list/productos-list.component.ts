@@ -5,6 +5,7 @@ import { Producto } from 'src/app/models/producto.model';
 import { Pagination, QueryParams } from 'src/app/models/rest.model';
 import { ProductoService } from 'src/app/services/producto.service';
 import { BonificacionFormComponent } from '../bonificacion-form/bonificacion-form.component';
+import readXlsxFile from 'read-excel-file';
 
 @Component({
   selector: 'app-productos-list',
@@ -84,7 +85,30 @@ export class ProductosListComponent implements OnInit {
   }
   
   openBonificacion(): void {
-    this._modalService.open(BonificacionFormComponent);
+    const modal = this._modalService.open(BonificacionFormComponent);
+    modal.result.then(data => {
+      if (data) {
+        this.fetchProductos();
+      }
+    })
+  }
+
+  onFileChange(data: any): void {
+    const mapFile = {
+      nombre: 'nombre',
+      codigo: 'codigo',
+      marca: 'marca',
+      precio: 'precioUnitario',
+      talle: 'talle'
+    }
+    const file = data.srcElement.files ? data.srcElement.files[0] : null;
+    if (file) {
+      readXlsxFile(file, {map: mapFile}).then((data) => {
+        this.productoService.import(data.rows).subscribe(data => {
+          this.fetchProductos();
+        })
+      })
+    }
   }
 
 }

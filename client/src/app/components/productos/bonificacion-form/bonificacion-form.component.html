@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Bonificacion</h4>
     <button type="button" class="btn-close" aria-label="Close button" aria-describedby="modal-title"
-        (click)="modal.dismiss('Cross click')"></button>
+        (click)="modal.close()"></button>
 </div>
 <div class="modal-body">
     <div class="form-group">
@@ -27,6 +27,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Salir</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Salir</button>
     <button type="button" ngbAutofocus class="btn btn-danger" (click)="onSubmit()">Guardar</button>
 </div>
