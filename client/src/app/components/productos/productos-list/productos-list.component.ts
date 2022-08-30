@@ -84,7 +84,7 @@ export class ProductosListComponent implements OnInit {
   }
   
   openBonificacion(): void {
-    this._modalService.open(BonificacionFormComponent)
+    this._modalService.open(BonificacionFormComponent);
   }
 
 }

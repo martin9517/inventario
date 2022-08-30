@@ -4,7 +4,7 @@ const Bonificacion = db.bonificaciones;
 // Create and Save a new bonificacion
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.nombre) {
+    if (!req.body.porcentaje) {
         res.status(400).send({ message: "Content can not be empty!" });
         return;
     }
@@ -27,18 +27,16 @@ exports.create = (req, res) => {
 };
 // Find a single Bonificacion with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    Bonificacion.findById(id)
+    Bonificacion.findOne({})
         .then(data => {
             if (!data)
-                res.status(404).send({ message: "Not found Bonificacion with id " + id });
+                res.status(404).send({ message: "Not found Bonificacion"});
             else res.send(data);
         })
         .catch(err => {
             res
                 .status(500)
-                .send({ message: "Error retrieving Bonificacion with id=" + id });
+                .send({ message: "Error retrieving Bonificacion" });
         });
 };
 

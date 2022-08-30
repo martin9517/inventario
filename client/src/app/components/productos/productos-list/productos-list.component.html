@@ -8,12 +8,11 @@
         </div>
     </div>
     <div class="d-flex flex-row-reverse">
-        <div>
+        <div class="p-2">
             <button class="align-items-left" type="button" class="btn btn-primary" (click)="searchNombre()"><i
                     class="bi bi-search"></i></button>
         </div>
-
-        <div class="col-auto">
+        <div class="p-2">
             <input type="text" class="form-control" [(ngModel)]="search" (ngModelChange)="clearSearch()"
                 placeholder="Codigo/Nombre">
         </div>
@@ -27,7 +26,6 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Marca</th>
                         <th scope="col">Talle</th>
-                        <th scope="col">Precio Unitario</th>
                         <th scope="col">Precio Bonificado</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -38,12 +36,11 @@
                         <td>{{producto.nombre}}</td>
                         <td>{{producto.marca?.nombre}}</td>
                         <td>{{producto.talle}}</td>
-                        <td>{{producto.precioUnitario?.toString() | currency}} </td>
-                        <td></td>
+                        <td>{{producto.precioBonificado?.toString() | currency}} </td>
                         <td>
-                            <button type="button" class="btn btn-success" (click)="edit(producto.id)"> <i
+                            <button type="button" class="btn btn-success btn-sm" (click)="edit(producto.id)"><i
                                     class="bi bi-pencil-square"></i></button>
-                            <button type="button" class="btn btn-danger" (click)="deleteEntity(producto.id)"><i
+                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteEntity(producto.id)"><i
                                     class="bi bi-trash3-fill"></i></button>
                         </td>
                     </tr>

@@ -13,8 +13,8 @@ export class BonificacionService {
   protected readonly baseURL = `${environment.API_URL}/bonificaciones`;
   constructor(private http: HttpClient) { }
 
-  get(id: any): Observable<Bonificacion> {
-    return this.http.get<Bonificacion>(`${this.baseURL}/${id}`);
+  getOne(): Observable<Bonificacion> {
+    return this.http.get<Bonificacion>(`${this.baseURL}/getOne`);
   }
 
   create(data: any): Observable<any> {

@@ -5,8 +5,8 @@ module.exports = mongoose => {
       {
         nombre: String,
         codigo: String,
-        precioUnitario: Number,        
-        bonificacion: Number,
+        precioUnitario: Number,
+        precioBonificado: Number,
         talle: String,
         marca : { type: Schema.Types.ObjectId, ref: 'Marca' }
       },

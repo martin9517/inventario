@@ -1,33 +1,33 @@
 <div class="container">
-    <div class="row">
+    <div class="d-flex flex-row mb-3">
         <form [formGroup]="form">
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Nombre</label>
                 <input type="text" class="form-control" formControlName="nombre">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Codigo</label>
                 <input type="text" class="form-control" formControlName="codigo">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Precio Unitario</label>
                 <input type="text" class="form-control" formControlName="precioUnitario">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Talle</label>
-                <select class="custom-select" formControlName="talle">
+                <select class="form-select" formControlName="talle">
                     <option selected>Seleccionar Talle</option>
                     <option *ngFor="let talle of talles" [value]='talle' > {{talle}}</option>
                   </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Marca</label>
-                <select class="custom-select" formControlName="marca">
+                <select class="form-select" formControlName="marca">
                     <option selected>Seleccionar Marca</option>
                     <option [value]='marca.id' *ngFor='let marca of marcas'>{{marca.nombre}}</option>
                   </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <button class="btn btn-primary btn-block" (click)="onSubmit()">Guardar</button>
             </div>
         </form>

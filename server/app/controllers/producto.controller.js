@@ -1,5 +1,6 @@
 const db = require("../models");
 const Producto = db.productos;
+const Bonificacion = db.bonificaciones;
 
 // Create and Save a new Producto
 exports.create = (req, res) => {
@@ -45,7 +46,16 @@ exports.findAll = (req, res) => {
     .limit(limit)
     .skip(skip)
     .then(data => {
-      res.send(data);
+      Bonificacion.findOne({}).then(bonificacion => {
+        if (bonificacion) {
+          data.map(item => {
+            item.precioBonificado = item.precioUnitario + (item.precioUnitario * bonificacion.porcentaje);
+            Producto.create(item);
+            return item;
+          })
+        }
+        res.json(data);
+      })
     })
     .catch(err => {
       res.status(500).send({
