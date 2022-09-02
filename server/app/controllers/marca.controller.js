@@ -48,9 +48,13 @@ exports.import = async (req, res) => {
 // Retrieve all Marcas from the database.
 exports.findAll = (req, res) => {
   const nombre = req.query.nombre;
+  const limit = req.query.limit ? Number(req.query.limit) : 10;
+  const skip = req.query.skip ? Number(req.query.skip) : 0;
   let condition = nombre ? { nombre: { $regex: new RegExp(nombre), $options: "i" } } : {};
 
   Marca.find(condition)
+    .limit(limit)
+    .skip(skip)
     .then(data => {
       res.send(data);
     })
