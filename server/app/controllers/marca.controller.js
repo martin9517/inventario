@@ -1,3 +1,4 @@
+const { marcas } = require("../models");
 const db = require("../models");
 const Marca = db.marcas;
 
@@ -24,6 +25,24 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the Marca."
       });
     });
+};
+
+exports.import = async (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
+  const data = req.body;
+
+  Marca.insertMany(data).then(marcas => {
+    res.send(marcas);
+  }).catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating productos."
+    });
+  })
 };
 
 // Retrieve all Marcas from the database.
@@ -107,3 +126,19 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+// Count all of Marca
+exports.count = (req, res) => {
+  let condition = {};
+
+  Marca.count(condition)
+    .then(total => {
+      res.send({ total: total })
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message
+      });
+    });
+}

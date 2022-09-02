@@ -1,7 +1,11 @@
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-auto">
             <button type="button" class="btn btn-primary" (click)="new()">Agregar</button>
+        </div>
+        <div class="col-auto">
+            <input type="file" style="display: none;" #fileInput (change)="onFileChange($event)">
+            <button type="button" class="btn btn-primary" (click)="fileInput.click()">Importar</button>
         </div>
     </div>
     <div class="row mt-2">
@@ -29,4 +33,6 @@
             </table>
         </div>
     </div>
+    <app-paginator *ngIf="pagination.total > LIMIT && !loading" [currentPage]="pagination.page" [perPage]="LIMIT"
+        [total]="pagination.total" (changePage)="onChangePage($event)"></app-paginator>
 </div>

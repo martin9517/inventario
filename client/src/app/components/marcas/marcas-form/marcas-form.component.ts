@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { withLatestFrom } from 'rxjs';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-marcas-form',
@@ -46,9 +47,9 @@ export class MarcasFormComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
       if (this.entityId) {
-        this.marcaService.update(this.entityId, this.form.value).subscribe(data =>{
+        this.marcaService.update(this.entityId, this.form.value).subscribe(data => {
           this.router.navigate(['marcas']);
-         });
+        });
       } else {
         this.marcaService.create(this.form.value).subscribe(data => {
           this.router.navigate(['marcas']);
@@ -56,5 +57,4 @@ export class MarcasFormComponent implements OnInit {
       }
     }
   }
-
 }

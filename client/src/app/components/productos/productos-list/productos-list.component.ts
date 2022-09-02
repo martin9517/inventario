@@ -13,7 +13,7 @@ import readXlsxFile from 'read-excel-file';
   styleUrls: ['./productos-list.component.css']
 })
 export class ProductosListComponent implements OnInit {
-  LIMIT = 2;
+  LIMIT = 5;
   productos?: Producto[];
   search ='';
   pagination: Pagination = {
