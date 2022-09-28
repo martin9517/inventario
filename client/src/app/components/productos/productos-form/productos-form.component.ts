@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Marca } from 'src/app/models/marca.model';
 import { Producto } from 'src/app/models/producto.model';
+import { QueryParams } from 'src/app/models/rest.model';
 import { MarcaService } from 'src/app/services/marca.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -71,7 +72,10 @@ export class ProductosFormComponent implements OnInit {
   }
 
   fetchMarcas(): void {
-    this.marcaService.getAll().subscribe(data => {
+    const queryParams = {
+      limit: 99999,
+    }
+    this.marcaService.getAll(queryParams).subscribe(data => {
       this.marcas = data
     })
   }

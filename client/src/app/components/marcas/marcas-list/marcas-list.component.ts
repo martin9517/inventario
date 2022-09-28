@@ -11,7 +11,7 @@ import { MarcaService } from 'src/app/services/marca.service';
   styleUrls: ['./marcas-list.component.css']
 })
 export class MarcasListComponent implements OnInit {
-  LIMIT = 9999;
+  LIMIT = 10;
   marcas?: Marca[];
   editables = {};
   search ='';
