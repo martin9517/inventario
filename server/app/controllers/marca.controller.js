@@ -47,10 +47,20 @@ exports.import = async (req, res) => {
 
 // Retrieve all Marcas from the database.
 exports.findAll = (req, res) => {
+  const search = req.query.search;
   const nombre = req.query.nombre;
   const limit = req.query.limit ? Number(req.query.limit) : 10;
   const skip = req.query.skip ? Number(req.query.skip) : 0;
   let condition = nombre ? { nombre: { $regex: new RegExp(nombre), $options: "i" } } : {};
+
+  if (search) {
+    condition['$or'] = [
+      { 'nombre': { $regex: new RegExp(search), $options: "i" } },
+      { 'codigo': { $regex: new RegExp(search), $options: "i" } }
+    ];
+  }
+
+
 
   Marca.find(condition)
     .limit(limit)
@@ -133,7 +143,15 @@ exports.delete = (req, res) => {
 
 // Count all of Marca
 exports.count = (req, res) => {
+  const search = req.query.search;
   let condition = {};
+
+  if (search) {
+    condition['$or'] = [
+      { 'nombre': { $regex: new RegExp(search), $options: "i" } },
+      { 'codigo': { $regex: new RegExp(search), $options: "i" } }
+    ];
+  }
 
   Marca.count(condition)
     .then(total => {

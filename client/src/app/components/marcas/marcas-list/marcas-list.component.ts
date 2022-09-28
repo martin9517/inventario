@@ -11,9 +11,10 @@ import { MarcaService } from 'src/app/services/marca.service';
   styleUrls: ['./marcas-list.component.css']
 })
 export class MarcasListComponent implements OnInit {
-  LIMIT = 10;
+  LIMIT = 9999;
   marcas?: Marca[];
   editables = {};
+  search ='';
   pagination: Pagination = {
     page: 0,
     total: 0
@@ -22,7 +23,6 @@ export class MarcasListComponent implements OnInit {
     limit: this.LIMIT,
     skip: 0
   };
-
   loading: boolean;
 
   constructor(
@@ -49,15 +49,16 @@ export class MarcasListComponent implements OnInit {
   }
 
   fetchMarcas(): void {
+    this.loading = true;
     this.marcaService.getAll(this.queryParams) 
       .subscribe({
         next: (data) => {
           this.marcaService.count(this.queryParams).subscribe(count => {
             this.marcas = data;
             this.pagination.total = count.total;
+            this.loading = false;
           });
         },
-        error: (e) => console.error(e)
       });
   }
 
@@ -80,6 +81,20 @@ export class MarcasListComponent implements OnInit {
           this.fetchMarcas();
         })
       })
+    }
+  }
+
+  searchNombre(): void {
+    if (this.search) {
+      this.queryParams.filters = [{field: 'search', value: this.search}];
+      this.fetchMarcas();
+    }
+  }
+
+  clearSearch(): void {
+    if (!this.search) {
+      this.queryParams.filters = [];
+      this.fetchMarcas();
     }
   }
 

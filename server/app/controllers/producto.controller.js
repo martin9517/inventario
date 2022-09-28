@@ -66,7 +66,7 @@ exports.findAll = (req, res) => {
       { 'codigo': { $regex: new RegExp(search), $options: "i" } }
     ];
   }
-
+  
   Producto.find(condition)
     .populate('marca', 'nombre')
     .limit(limit)
